@@ -14,9 +14,6 @@ export default class App extends React.Component {
           borderColor: colors.lightPurple,
           borderWidth: 1,
         }}>
-          <InputForm>
-
-          </InputForm>
         </View>
         <TouchableOpacity
           style={{
