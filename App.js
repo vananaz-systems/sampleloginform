@@ -10,17 +10,22 @@ export default class App extends React.Component {
     };
   }
 
+  emailValidate = (text) => {
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (this.state.emailInputText.length === 0 ) {
+      return 'this field is required';
+    }
+    if (!emailRegex.test(this.state.emailInputText)) {
+      return 'not correct format for email address';
+    }
+    return '';
+  }
+
   render() {
     let emailErrorMessage = '';
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (this.state.emailTouched) {
-      if (this.state.emailInputText.length === 0 ) {
-        emailErrorMessage = 'this field is required';
-      }
-      else if (!emailRegex.test(this.state.emailInputText)) {
-        emailErrorMessage = 'not correct format for email address';
-      }
+      emailErrorMessage = this.emailValidate(this.state.emailInputText);
     }
 
     return (
@@ -95,7 +100,12 @@ export default class App extends React.Component {
             backgroundColor: colors.lightPurple,
             marginBottom: 40,
           }}
-          onPress={() => alert('Signed In')}
+          onPress={() => {
+            this.setState({emailTouched: true});
+            if (this.emailValidate(this.state.emailInputText) === '') {
+              alert('Signed In');
+            }
+          }}
         >
           <Text style={{fontSize: 25, color: colors.white}}>Sign In</Text>
         </TouchableOpacity>
