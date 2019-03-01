@@ -4,10 +4,25 @@ import { StyleSheet, TouchableOpacity, View, Image, Text, TextInput } from 'reac
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loginInputText: 'test' };
+    this.state = {
+      emailTouched: false,
+      emailInputText: '',
+    };
   }
 
   render() {
+    let emailErrorMessage = '';
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (this.state.emailTouched) {
+      if (this.state.emailInputText.length === 0 ) {
+        emailErrorMessage = 'this field is required';
+      }
+      else if (!emailRegex.test(this.state.emailInputText)) {
+        emailErrorMessage = 'not correct format for email address';
+      }
+    }
+
     return (
       <View style={styles.container}>
         <View style={{
@@ -53,13 +68,14 @@ export default class App extends React.Component {
               autoCapitalize='none'
               placeholder='Input email address'
               placeholderTextColor={colors.lightGray}
-              onChangeText={(text) => this.setState({loginInputText: text})}
-              value={this.state.loginInputText}
+              onChangeText={(text) => this.setState({emailInputText: text, emailTouched: true})}
+              value={this.state.emailInputText}
             />
           </View>
           <View
             style={{
               alignSelf: 'start',
+              height: 15,
               marginVertical: 2,
             }}
           >
@@ -69,7 +85,7 @@ export default class App extends React.Component {
               color: colors.red,
 
             }}>
-              not correct format for email address
+              {emailErrorMessage}
             </Text>
           </View>
         </View>
