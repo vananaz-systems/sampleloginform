@@ -20,7 +20,7 @@ export default class App extends React.Component {
         </View>
           <View
             style = {{
-              marginBottom: 20,
+              marginBottom: 5,
               width: '100%',
             }}>
           <View
@@ -49,6 +49,10 @@ export default class App extends React.Component {
                 paddingHorizontal: 10,
                 color: colors.black,
               }}
+              keyboardType='email-address'
+              autoCapitalize='none'
+              placeholder='Input email address'
+              placeholderTextColor={colors.lightGray}
               onChangeText={(text) => this.setState({loginInputText: text})}
               value={this.state.loginInputText}
             />
@@ -73,6 +77,7 @@ export default class App extends React.Component {
           style={{
             ...styles.formItem,
             backgroundColor: colors.lightPurple,
+            marginBottom: 40,
           }}
           onPress={() => alert('Signed In')}
         >
