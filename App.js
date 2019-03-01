@@ -13,8 +13,10 @@ export default class App extends React.Component {
         <View style={{
           alignItems: 'center',
           justifyContent: 'center',
+          flex: 1,
         }}>
-          <Image source={require('./assets/Logo.png')}/>
+          <Image
+            source={require('./assets/Logo.png')}/>
         </View>
           <View
             style = {{
@@ -96,7 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundColor,
     alignItems: 'center',
-    justifyContent: 'center',
     marginHorizontal: 10,
   },
   formItem: {
