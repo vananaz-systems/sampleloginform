@@ -1,28 +1,80 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, Text, TextInput } from 'react-native';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { loginInputText: 'test' };
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
           <Image source={require('./assets/Logo.png')}/>
         </View>
-        <View style={{
-          ...styles.formItem,
-          backgroundColor: colors.white,
-          borderColor: colors.lightPurple,
-          borderWidth: 1,
-        }}>
+          <View
+            style = {{
+              marginBottom: 20,
+              width: '100%',
+            }}>
+          <View
+            style={{
+              alignSelf: 'start',
+              marginBottom: 5,
+            }}
+          >
+            <Text style={{
+              fontSize: 20,
+            }}>
+              Email
+            </Text>
+          </View>
+          <View style={{
+            ...styles.formItem,
+            backgroundColor: colors.white,
+            borderColor: colors.lightPurple,
+            borderWidth: 1,
+          }}>
+            <TextInput
+              style={{
+                fontSize: 20,
+                height: 40,
+                width: '100%',
+                paddingHorizontal: 10,
+                color: colors.black,
+              }}
+              onChangeText={(text) => this.setState({loginInputText: text})}
+              value={this.state.loginInputText}
+            />
+          </View>
+          <View
+            style={{
+              alignSelf: 'start',
+              marginVertical: 2,
+            }}
+          >
+            <Text style={{
+              fontSize: 14,
+              fontStyle: 'italic',
+              color: colors.red,
+
+            }}>
+              not correct format for email address
+            </Text>
+          </View>
         </View>
         <TouchableOpacity
           style={{
             ...styles.formItem,
-            backgroundColor: colors.lightPurple
+            backgroundColor: colors.lightPurple,
           }}
           onPress={() => alert('Signed In')}
         >
-          <Text style={{fontSize: 30, color: colors.white}}>Sign In</Text>
+          <Text style={{fontSize: 25, color: colors.white}}>Sign In</Text>
         </TouchableOpacity>
       </View>
     );
