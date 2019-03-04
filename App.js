@@ -7,6 +7,8 @@ export default class App extends React.Component {
     this.state = {
       emailTouched: false,
       emailInputText: '',
+      passwordTouched: false,
+      passwordInputText: '',
     };
   }
 
@@ -21,11 +23,26 @@ export default class App extends React.Component {
     return '';
   }
 
+  validatePassword = (text) => {
+    if (this.state.passwordInputText.length === 0 ) {
+      return 'this field is required';
+    }
+    if (this.state.passwordInputText.length < 6 || this.state.passwordInputText.length > 12) {
+      return 'the length of password must have 6 - 12 characters';
+    }
+    return '';
+  }
+
   render() {
     let emailErrorMessage = '';
+    let passwordErrorMessage = '';
 
     if (this.state.emailTouched) {
       emailErrorMessage = this.validateEmail(this.state.emailInputText);
+    }
+
+    if (this.state.passwordTouched) {
+      passwordErrorMessage = this.validatePassword(this.state.passwordInputText);
     }
 
     return (
@@ -38,63 +55,126 @@ export default class App extends React.Component {
           <Image
             source={require('./assets/Logo.png')}/>
         </View>
-        <View
+        <View style = {{
+          marginBottom: 40,
+          width: '100%',
+        }}>
+          <View
             style = {{
               marginBottom: 5,
               width: '100%',
             }}>
-          <View
-            style={{
-              alignSelf: 'start',
-              marginBottom: 5,
-            }}
-          >
-            <Text style={{
-              fontSize: 20,
-            }}>
-              Email
-            </Text>
-          </View>
-          <View style={{
-            ...styles.formItem,
-            backgroundColor: colors.white,
-            borderColor: colors.lightPurple,
-            borderWidth: 1,
-          }}>
-            <TextInput
+            <View
               style={{
-                fontSize: 20,
-                height: 40,
-                width: '100%',
-                paddingHorizontal: 10,
-                color: colors.black,
+                alignSelf: 'start',
+                marginBottom: 5,
               }}
-              keyboardType='email-address'
-              autoCapitalize='none'
-              placeholder='Input email address'
-              placeholderTextColor={colors.lightGray}
-              onChangeText={(text) => this.setState({emailInputText: text, emailTouched: true})}
-              value={this.state.emailInputText}
-            />
+            >
+              <Text style={{
+                fontSize: 20,
+              }}>
+                Email
+              </Text>
+            </View>
+            <View style={{
+              ...styles.formItem,
+              backgroundColor: colors.white,
+              borderColor: colors.lightPurple,
+              borderWidth: 1,
+            }}>
+              <TextInput
+                style={{
+                  fontSize: 20,
+                  height: 40,
+                  width: '100%',
+                  paddingHorizontal: 10,
+                  color: colors.black,
+                }}
+                keyboardType='email-address'
+                textContentType='emailAddress'
+                autoCapitalize={false}
+                placeholder='Input email address'
+                placeholderTextColor={colors.lightGray}
+                onChangeText={(text) => this.setState({emailInputText: text, emailTouched: true})}
+                value={this.state.emailInputText}
+              />
+            </View>
+            <View
+              style={{
+                alignSelf: 'start',
+                height: 15,
+                marginVertical: 2,
+              }}
+            >
+              <Text style={{
+                fontSize: 14,
+                fontStyle: 'italic',
+                color: colors.red,
+
+              }}>
+                {emailErrorMessage}
+              </Text>
+            </View>
           </View>
           <View
-            style={{
-              alignSelf: 'start',
-              height: 15,
-              marginVertical: 2,
-            }}
-          >
-            <Text style={{
-              fontSize: 14,
-              fontStyle: 'italic',
-              color: colors.red,
-
+            style = {{
+              marginBottom: 5,
+              width: '100%',
             }}>
-              {emailErrorMessage}
-            </Text>
+            <View
+              style={{
+                alignSelf: 'start',
+                marginBottom: 5,
+              }}
+            >
+              <Text style={{
+                fontSize: 20,
+              }}>
+                Password
+              </Text>
+            </View>
+            <View style={{
+              ...styles.formItem,
+              backgroundColor: colors.white,
+              borderColor: colors.lightPurple,
+              borderWidth: 1,
+            }}>
+              <TextInput
+                style={{
+                  fontSize: 20,
+                  height: 40,
+                  width: '100%',
+                  paddingHorizontal: 10,
+                  color: colors.black,
+                }}
+                keyboardType='default'
+                textContentType='password'
+                autoCapitalize={false}
+                placeholder='Input password'
+                placeholderTextColor={colors.lightGray}
+                onChangeText={(text) => this.setState({passwordInputText: text, passwordTouched: true})}
+                secureTextEntry={true}
+                value={this.state.passwordInputText}
+              />
+            </View>
+            <View
+              style={{
+                alignSelf: 'start',
+                height: 15,
+                marginVertical: 2,
+              }}
+            >
+              <Text style={{
+                fontSize: 14,
+                fontStyle: 'italic',
+                color: colors.red,
+
+              }}>
+                {passwordErrorMessage}
+              </Text>
+            </View>
           </View>
         </View>
-
         <TouchableOpacity
           style={{
             ...styles.formItem,
@@ -102,8 +182,9 @@ export default class App extends React.Component {
             marginBottom: 40,
           }}
           onPress={() => {
-            this.setState({emailTouched: true});
-            if (this.validateEmail(this.state.emailInputText) === '') {
+            this.setState({emailTouched: true, passwordTouched: true});
+            if (this.validateEmail(this.state.emailInputText) === '' &&
+              this.validatePassword(this.state.passwordInputText)) {
               alert('Signed In');
             }
           }}
