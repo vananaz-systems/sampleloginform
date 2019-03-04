@@ -10,7 +10,7 @@ export default class App extends React.Component {
     };
   }
 
-  emailValidate = (text) => {
+  validateEmail = (text) => {
     const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (this.state.emailInputText.length === 0 ) {
       return 'this field is required';
@@ -25,7 +25,7 @@ export default class App extends React.Component {
     let emailErrorMessage = '';
 
     if (this.state.emailTouched) {
-      emailErrorMessage = this.emailValidate(this.state.emailInputText);
+      emailErrorMessage = this.validateEmail(this.state.emailInputText);
     }
 
     return (
@@ -38,7 +38,7 @@ export default class App extends React.Component {
           <Image
             source={require('./assets/Logo.png')}/>
         </View>
-          <View
+        <View
             style = {{
               marginBottom: 5,
               width: '100%',
@@ -94,6 +94,7 @@ export default class App extends React.Component {
             </Text>
           </View>
         </View>
+
         <TouchableOpacity
           style={{
             ...styles.formItem,
@@ -102,7 +103,7 @@ export default class App extends React.Component {
           }}
           onPress={() => {
             this.setState({emailTouched: true});
-            if (this.emailValidate(this.state.emailInputText) === '') {
+            if (this.validateEmail(this.state.emailInputText) === '') {
               alert('Signed In');
             }
           }}
