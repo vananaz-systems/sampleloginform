@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, Text, TextInput } from 'react-native';
+import { TouchableOpacity, View, Image, Text, TextInput } from 'react-native';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -46,7 +46,12 @@ export default class App extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={{
+        flex: 1,
+        backgroundColor: '#FAF8FF',
+        alignItems: 'center',
+        marginHorizontal: 10,
+      }}>
         <View style={{
           alignItems: 'center',
           justifyContent: 'center',
@@ -72,14 +77,19 @@ export default class App extends React.Component {
             >
               <Text style={{
                 fontSize: 20,
+                color: '#363636'
               }}>
                 Email
               </Text>
             </View>
             <View style={{
-              ...styles.formItem,
-              backgroundColor: colors.white,
-              borderColor: colors.lightPurple,
+              height: 50,
+              borderRadius: 5,
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#FFFFFF',
+              borderColor: '#7150B0',
               borderWidth: 1,
             }}>
               <TextInput
@@ -88,13 +98,13 @@ export default class App extends React.Component {
                   height: 40,
                   width: '100%',
                   paddingHorizontal: 10,
-                  color: colors.black,
+                  color: '#363636',
                 }}
                 keyboardType='email-address'
                 textContentType='emailAddress'
                 autoCapitalize={false}
                 placeholder='Input email address'
-                placeholderTextColor={colors.lightGray}
+                placeholderTextColor='#DBDBDB'
                 onChangeText={(text) => this.setState({emailInputText: text, emailTouched: true})}
                 value={this.state.emailInputText}
               />
@@ -109,7 +119,7 @@ export default class App extends React.Component {
               <Text style={{
                 fontSize: 14,
                 fontStyle: 'italic',
-                color: colors.red,
+                color: '#D11C34',
 
               }}>
                 {emailErrorMessage}
@@ -129,14 +139,19 @@ export default class App extends React.Component {
             >
               <Text style={{
                 fontSize: 20,
+                color: '#363636',
               }}>
                 Password
               </Text>
             </View>
             <View style={{
-              ...styles.formItem,
-              backgroundColor: colors.white,
-              borderColor: colors.lightPurple,
+              height: 50,
+              borderRadius: 5,
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#FFFFFF',
+              borderColor: '#7150B0',
               borderWidth: 1,
             }}>
               <TextInput
@@ -145,13 +160,13 @@ export default class App extends React.Component {
                   height: 40,
                   width: '100%',
                   paddingHorizontal: 10,
-                  color: colors.black,
+                  color: '#363636',
                 }}
                 keyboardType='default'
                 textContentType='password'
                 autoCapitalize={false}
                 placeholder='Input password'
-                placeholderTextColor={colors.lightGray}
+                placeholderTextColor='#DBDBDB'
                 onChangeText={(text) => this.setState({passwordInputText: text, passwordTouched: true})}
                 secureTextEntry={true}
                 value={this.state.passwordInputText}
@@ -167,7 +182,7 @@ export default class App extends React.Component {
               <Text style={{
                 fontSize: 14,
                 fontStyle: 'italic',
-                color: colors.red,
+                color: '#D11C34',
 
               }}>
                 {passwordErrorMessage}
@@ -177,8 +192,12 @@ export default class App extends React.Component {
         </View>
         <TouchableOpacity
           style={{
-            ...styles.formItem,
-            backgroundColor: colors.lightPurple,
+            height: 50,
+            borderRadius: 5,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#7150B0',
             marginBottom: 40,
           }}
           onPress={() => {
@@ -189,37 +208,9 @@ export default class App extends React.Component {
             }
           }}
         >
-          <Text style={{fontSize: 25, color: colors.white}}>Sign In</Text>
+          <Text style={{fontSize: 25, color: '#FFFFFF'}}>Sign In</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
-
-const colors = {
-  darkPurple: '#341B67',
-  lightPurple: '#7150B0',
-  backgroundColor: '#FAF8FF',
-  darkGray: '#363636',
-  lightGray: '#DBDBDB',
-  red: '#D11C34',
-  white: '#FFFFFF',
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.backgroundColor,
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  formItem: {
-    height: 50,
-    borderRadius: 5,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
-
-
